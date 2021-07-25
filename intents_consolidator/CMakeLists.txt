@@ -15,15 +15,33 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+# Find dependencies
 find_package(ament_cmake_auto REQUIRED)
-find_library(libconsolidator)
+ament_auto_find_build_dependencies()
 
-ament_aut
+
+FILE(GLOB_RECURSE SOURCES *.cpp)
+ament_auto_add_library(
+  consolidator 
+  ${SOURCES}
+)
+
+# ament_auto_add_library(
+#   entity 
+#   src/intents/entity/*.cc
+#   src/intents/entity/*.h
+# )
+
+# intents_consolidator executable
+ament_auto_add_executable(
+  ${PROJECT_NAME}
+  src/consolidator_main.cpp
+)
+target_link_libraries(${PROJECT_NAME} consolidator )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package_auto()
+ament_auto_package()
