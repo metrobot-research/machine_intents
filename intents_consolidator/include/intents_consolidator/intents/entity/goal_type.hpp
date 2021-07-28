@@ -1,12 +1,19 @@
-#ifndef ROS_WS_INTENTS_WS_SRC_MACHINE_INTENTS_INTENTS_CONSOLIDATOR_INCLUDE_INTENTS_CONSOLIDATOR_INTENTS_ENTITY_GOAL_TYPE_HPP
-#define ROS_WS_INTENTS_WS_SRC_MACHINE_INTENTS_INTENTS_CONSOLIDATOR_INCLUDE_INTENTS_CONSOLIDATOR_INTENTS_ENTITY_GOAL_TYPE_HPP
+/**
+ * Copyright (c) 2021 The MetroBot Authors
+ */
+
+#ifndef INTENTS_CONSOLIDATOR__INTENTS__ENTITY__GOAL_TYPE_HPP_
+#define INTENTS_CONSOLIDATOR__INTENTS__ENTITY__GOAL_TYPE_HPP_
 
 #include "boost/uuid/uuid.hpp"
 
-namespace intents {
-namespace entity {
+namespace intents
+{
+namespace entity
+{
 
-enum class GoalType {
+enum class GoalType
+{
   kIdle,
   kObtain,
   kInterfaceWith,  // Occupant <-> POI
@@ -16,4 +23,4 @@ enum class GoalType {
 }  // namespace entity
 }  // namespace intents
 
-#endif  // ROS_WS_INTENTS_WS_SRC_MACHINE_INTENTS_INTENTS_CONSOLIDATOR_INCLUDE_INTENTS_CONSOLIDATOR_INTENTS_ENTITY_GOAL_TYPE_HPP
+#endif  // INTENTS_CONSOLIDATOR__INTENTS__ENTITY__GOAL_TYPE_HPP_

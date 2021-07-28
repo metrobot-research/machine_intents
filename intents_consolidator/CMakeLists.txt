@@ -19,29 +19,33 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-
-FILE(GLOB_RECURSE SOURCES *.cpp)
 ament_auto_add_library(
-  consolidator 
-  ${SOURCES}
+  intents
+  src/intents/consolidator/consolidator.cpp
+  src/intents/entity/point_of_interest.cpp
 )
-
-# ament_auto_add_library(
-#   entity 
-#   src/intents/entity/*.cc
-#   src/intents/entity/*.h
-# )
 
 # intents_consolidator executable
-ament_auto_add_executable(
-  ${PROJECT_NAME}
-  src/consolidator_main.cpp
-)
-target_link_libraries(${PROJECT_NAME} consolidator )
+# ament_auto_add_executable(
+#   ${PROJECT_NAME}
+#   src/consolidator_main.cpp
+# )
+# target_link_libraries(${PROJECT_NAME} intents)
 
 if(BUILD_TESTING)
+  set(TEST_TARGET ${PROJECT_NAME}_TEST)
+
   find_package(ament_lint_auto REQUIRED)
+
+  # Intentionally defeat the copyright check for MIT license
+  set(ament_cmake_copyright_FOUND true)
+
   ament_lint_auto_find_test_dependencies()
+
+  # ament_add_gtest(${TEST_TARGET} src/intents/consolidator/consolidator_test.cpp)
+
+  # target_link_libraries(${TEST_TARGET} intents)
+
 endif()
 
 ament_auto_package()

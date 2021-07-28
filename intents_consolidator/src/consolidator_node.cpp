@@ -1,1 +1,3 @@
-#include "intents_consolidator/consolidator_node.hpp"
+/**
+ * Copyright (c) 2021 The MetroBot Authors
+ */
