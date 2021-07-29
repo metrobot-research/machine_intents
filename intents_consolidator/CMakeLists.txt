@@ -15,15 +15,37 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+# Find dependencies
 find_package(ament_cmake_auto REQUIRED)
-find_library(libconsolidator)
+ament_auto_find_build_dependencies()
 
-ament_aut
+ament_auto_add_library(
+  intents
+  src/intents/consolidator/consolidator.cpp
+  src/intents/entity/point_of_interest.cpp
+)
+
+# intents_consolidator executable
+ament_auto_add_executable(
+  ${PROJECT_NAME}
+  src/consolidator_main.cpp
+)
+target_link_libraries(${PROJECT_NAME} intents)
 
 if(BUILD_TESTING)
+  set(TEST_TARGET ${PROJECT_NAME}_TEST)
+
   find_package(ament_lint_auto REQUIRED)
+
+  # Intentionally defeat the copyright check for MIT license
+  set(ament_cmake_copyright_FOUND true)
+
   ament_lint_auto_find_test_dependencies()
+
+  # TODO(JS): Uncomment gtest once cppcheck stops complaining
+  # ament_add_gtest(${TEST_TARGET} src/intents/consolidator/consolidator_test.cpp)
+  # target_link_libraries(${TEST_TARGET} intents)
+
 endif()
 
-ament_package_auto()
+ament_auto_package()
