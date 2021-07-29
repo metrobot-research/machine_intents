@@ -26,11 +26,11 @@ ament_auto_add_library(
 )
 
 # intents_consolidator executable
-# ament_auto_add_executable(
-#   ${PROJECT_NAME}
-#   src/consolidator_main.cpp
-# )
-# target_link_libraries(${PROJECT_NAME} intents)
+ament_auto_add_executable(
+  ${PROJECT_NAME}
+  src/consolidator_main.cpp
+)
+target_link_libraries(${PROJECT_NAME} intents)
 
 if(BUILD_TESTING)
   set(TEST_TARGET ${PROJECT_NAME}_TEST)
@@ -42,8 +42,8 @@ if(BUILD_TESTING)
 
   ament_lint_auto_find_test_dependencies()
 
+  # TODO(JS): Uncomment gtest once cppcheck stops complaining
   # ament_add_gtest(${TEST_TARGET} src/intents/consolidator/consolidator_test.cpp)
-
   # target_link_libraries(${TEST_TARGET} intents)
 
 endif()
