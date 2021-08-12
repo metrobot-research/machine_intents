@@ -1,5 +1,5 @@
 std_msgs/Header header
 
-string uuid
+Embedding embedding
 
 geometry_msgs/PoseWithCovariance pose
