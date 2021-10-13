@@ -40,3 +40,9 @@ class FaceDetection(Node):
             self.publisher_.publish(msg)
             self.get_logger().info("Face Detected!")
         self.get_logger().info(f"{len(face_locations)} faces detected.")
+
+if __name__ == '__main__':
+    rclpy.init()
+    node = FaceDetection()
+    rclpy.spin(node)
+    rclpy.shutdown()
