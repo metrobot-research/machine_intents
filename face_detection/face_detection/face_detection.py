@@ -1,4 +1,3 @@
-from operator import pos
 import time
 
 import face_recognition
@@ -8,7 +7,6 @@ import cv2
 
 from machine_intents_interfaces.msg import DetectionResult
 from sensor_msgs.msg import Image as msg_Image
-from cv_bridge import CvBridge, CvBridgeError
 
 class FaceDetection(Node):
     def __init__(self):

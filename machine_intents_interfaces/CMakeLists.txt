@@ -19,6 +19,18 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
+# Prepare custom interfaces
+find_package(rosidl_default_generators REQUIRED)
+rosidl_generate_interfaces(${PROJECT_NAME}
+  msg/DetectionResult.msg
+  msg/Embedding.msg
+  msg/ObjectClassificationResult.msg
+  msg/PoseEstimationResult.msg
+  msg/VoiceDetectionResult.msg
+  DEPENDENCIES geometry_msgs std_msgs
+)
+ament_export_dependencies(rosidl_default_runtime)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   
