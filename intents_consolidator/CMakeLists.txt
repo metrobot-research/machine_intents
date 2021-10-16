@@ -25,12 +25,21 @@ ament_auto_add_library(
   src/intents/entity/point_of_interest.cpp
 )
 
-# intents_consolidator executable
-ament_auto_add_executable(
-  ${PROJECT_NAME}
-  src/consolidator_main.cpp
+# consolidator_node
+ament_auto_add_library(
+  consolidator_node
+  SHARED
+  src/consolidator_node.cpp
 )
-target_link_libraries(${PROJECT_NAME} intents)
+target_link_libraries(consolidator_node intents)
+target_compile_definitions(consolidator_node
+  PRIVATE "COMPOSITION_BUILDING_DLL")
+rclcpp_components_register_nodes(consolidator_node "machine_intents::intents_consolidator::ConsolidatorNode")
+set(node_plugins "${node_plugins}machine_intents::intents_consolidator::ConsolidatorNode;$<TARGET_FILE:consolidator_node>\n")
+ament_auto_add_executable(
+  consolidator_exe
+  src/consolidator_node.cpp
+)
 
 if(BUILD_TESTING)
   set(TEST_TARGET ${PROJECT_NAME}_TEST)
