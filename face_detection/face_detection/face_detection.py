@@ -8,11 +8,14 @@ import cv2
 from machine_intents_interfaces.msg import DetectionResult
 from sensor_msgs.msg import Image as msg_Image
 
+
 class FaceDetection(Node):
     def __init__(self):
         super().__init__("face_detection")
-        self.publisher_ = self.create_publisher(DetectionResult, "face_detection", 10)
-        self.subscription = self.create_subscription(msg_Image, "sensor_msgs/Image", self.camera_callback, 10)
+        self.publisher_ = self.create_publisher(
+            DetectionResult, "face_detection", 10)
+        self.subscription = self.create_subscription(
+            msg_Image, "sensor_msgs/Image", self.camera_callback, 10)
 
     def camera_callback(self, data):
         cv_image = self.bridge.imgmsg_to_cv2(data, data.encoding)
@@ -21,8 +24,9 @@ class FaceDetection(Node):
         rgb_small_frame = small_frame[:, :, ::-1]
 
         face_locations = face_recognition.face_locations(rgb_small_frame)
-        face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
-        
+        face_encodings = face_recognition.face_encodings(
+            rgb_small_frame, face_locations)
+
         for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
             msg = DetectionResult()
             msg.stamp = time.time()
@@ -38,6 +42,7 @@ class FaceDetection(Node):
             self.publisher_.publish(msg)
             self.get_logger().info("Face Detected!")
         self.get_logger().info(f"{len(face_locations)} faces detected.")
+
 
 if __name__ == '__main__':
     rclpy.init()
