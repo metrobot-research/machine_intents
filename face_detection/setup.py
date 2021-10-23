@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'face_detection_node = face_detection.face_detection'
+            'face_detection_node = face_detection.face_detection:main'
         ],
     },
 )
