@@ -3,31 +3,34 @@
 #include <cassert>
 
 #include <Eigen/Dense>
-#include "intents_consolidator/datastructures/embeddings.hpp"
+#include "intents_consolidator/datastructures/embedding.hpp"
 #include "machine_intents_interfaces/msg/embedding.hpp"
 
 namespace datastructures
 {
 
 Embedding::Embedding(machine_intents_interfaces::msg::Embedding & msg)
-: vector(msg.data.data(), (long int) msg.data.size())
+: vector_(msg.data.data(), (long int) msg.data.size())
 {
-  comparison_type = msg.comparison_type;
-  type = msg.type;
+  comparison_type_ = msg.comparison_type;
+  type_ = msg.type;
 }
 
-double Embedding::compare(const Embedding & other)
+double Embedding::Compare(const Embedding & other) const
 {
-  assert(other.vector.size() == vector.size());
+  assert(other.vector_.size() == vector_.size());
+  assert(other.comparison_type_ == comparison_type_);
+
   // Return L2 norm of the difference between this vector and other.
-  if (comparison_type == "distance") {
-    Eigen::VectorXd temp = vector - other.vector;
-    return temp.norm();
+  if (comparison_type_ == "distance") {
+    Eigen::VectorXd diff = vector_ - other.vector_;
+    return diff.norm();
   }
-  // Return the cosine angle difference between this matrix and other.
-  if (comparison_type == "cosine") {
-    return vector.dot(other.vector) / (vector.norm() * other.vector.norm());
+  // Return the cosine similarity between this matrix and other.
+  if (comparison_type_ == "cosine") {
+    return vector_.dot(other.vector_) / (vector_.norm() * other.vector_.norm());
   }
   return 0.0;
 }
+
 } // namespace datastructures

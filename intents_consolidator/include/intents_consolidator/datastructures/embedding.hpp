@@ -5,6 +5,8 @@
 #ifndef INTENTS_CONSOLIDATOR__DATASTRUCTURES__EMBEDDINGS_HPP_
 #define INTENTS_CONSOLIDATOR__DATASTRUCTURES__EMBEDDINGS_HPP_
 
+#include <string>
+
 #include <Eigen/Dense>
 #include "machine_intents_interfaces/msg/embedding.hpp"
 
@@ -15,12 +17,15 @@ class Embedding
 {
 public:
   explicit Embedding(machine_intents_interfaces::msg::Embedding & msg);
-  double compare(const Embedding & other);
+
+  // Given two embeddings, compare them via comparison_type
+  // (vectors must be same length and have the same comparison_type)
+  double Compare(const Embedding & other) const;
 
 private:
-  Eigen::Map<Eigen::VectorXd> vector;
-  std::string comparison_type;
-  std::string type;
+  Eigen::Map<Eigen::VectorXd> vector_;
+  std::string comparison_type_;
+  std::string type_;
 };
 
 } // namespace datastructures
