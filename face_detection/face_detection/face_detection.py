@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import time
 
 import face_recognition
@@ -15,6 +16,7 @@ class FaceDetection(Node):
         self.subscription = self.create_subscription(msg_Image, "sensor_msgs/Image", self.camera_callback, 10)
 
     def camera_callback(self, data):
+        print("1")
         cv_image = self.bridge.imgmsg_to_cv2(data, data.encoding)
         small_frame = cv2.resize(cv_image, (0, 0), fx=0.25, fy=0.25)
         # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
@@ -39,8 +41,15 @@ class FaceDetection(Node):
             self.get_logger().info("Face Detected!")
         self.get_logger().info(f"{len(face_locations)} faces detected.")
 
-if __name__ == '__main__':
+def main():
+    print("Before init")
     rclpy.init()
+    print("After init")
     node = FaceDetection()
+    print("FaceDetection node created")
     rclpy.spin(node)
+    print("Spin")
     rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
