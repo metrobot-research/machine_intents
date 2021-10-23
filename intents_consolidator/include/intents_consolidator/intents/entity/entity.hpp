@@ -7,7 +7,7 @@
 
 #include <algorithm>
 
-#include "absl/time/time.h"
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include "boost/uuid/random_generator.hpp"
 #include "boost/uuid/uuid.hpp"
 
@@ -28,10 +28,10 @@ public:
   virtual ~Entity() {}
 
   const boost::uuids::uuid & UUID() const {return uuid_;}
-  const absl::Time & LastSeen() const {return last_seen_;}
+  const boost::posix_time::ptime LastSeen() const {return last_seen_;}
   const Location & Loc() const {return location_;}
 
-  void SetLastSeen(const absl::Time & seen_at)
+  void SetLastSeen(const boost::posix_time::ptime seen_at)
   {
     last_seen_ = std::max(seen_at, last_seen_);
   }
@@ -43,7 +43,7 @@ public:
 
 private:
   const boost::uuids::uuid uuid_;
-  absl::Time last_seen_;
+  boost::posix_time::ptime last_seen_;
   Location location_;
 };
 
