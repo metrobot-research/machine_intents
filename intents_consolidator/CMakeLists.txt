@@ -17,7 +17,16 @@ endif()
 
 # Find dependencies
 find_package(ament_cmake_auto REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 ament_auto_find_build_dependencies()
+
+
+ament_auto_add_library(
+  datastructures
+  src/datastructures/embedding.cpp
+)
+target_link_libraries(datastructures Eigen3::Eigen)
 
 ament_auto_add_library(
   intents
@@ -31,7 +40,7 @@ ament_auto_add_library(
   SHARED
   src/consolidator_node.cpp
 )
-target_link_libraries(consolidator_node intents)
+target_link_libraries(consolidator_node intents datastructures)
 target_compile_definitions(consolidator_node
   PRIVATE "COMPOSITION_BUILDING_DLL")
 rclcpp_components_register_nodes(consolidator_node "machine_intents::intents_consolidator::ConsolidatorNode")
