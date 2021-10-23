@@ -8,8 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "absl/memory/memory.h"
-#include "absl/time/time.h"
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include "intents_consolidator/intents/entity/location.hpp"
 
 namespace intents
@@ -24,7 +23,7 @@ public:
 
   double Confidence() const {return confidence_;}
 
-  const absl::Time & Timestamp() const {return timestamp_;}
+  const boost::posix_time::ptime Timestamp() const {return timestamp_;}
 
   const ::intents::entity::Location & Loc() const {return location_;}
 
@@ -34,7 +33,7 @@ private:
   std::string source_;
   double confidence_;  // TODO(JS): Decide if this is an appropriate
                        // representation for confidence
-  absl::Time timestamp_;
+  boost::posix_time::ptime timestamp_;
   ::intents::entity::Location location_;
 };
 

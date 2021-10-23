@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-#include "absl/time/time.h"
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include "intents_consolidator/intents/entity/entity.hpp"
 #include "intents_consolidator/intents/entity/point_of_interest.hpp"
 #include "intents_consolidator/intents/entity/pose.hpp"
@@ -20,7 +20,7 @@ namespace entity
 
 class Occupant : public ::intents::entity::Entity
 {
-  using TimestampedPose = std::pair<absl::Time, ::intents::entity::Pose>;
+  using TimestampedPose = std::pair<boost::posix_time::ptime, ::intents::entity::Pose>;
 
 public:
   Occupant()
@@ -29,7 +29,7 @@ public:
   const std::vector<TimestampedPose> & PoseHistory() {return pose_history_;}
 
   void add_timestamped_pose(
-    const absl::Time & time,
+    const boost::posix_time::ptime time,
     const ::intents::entity::Pose & pose)
   {
     pose_history_.emplace_back(time, pose);

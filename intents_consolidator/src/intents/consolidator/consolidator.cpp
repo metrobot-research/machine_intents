@@ -6,8 +6,6 @@
 #include <memory>
 #include <vector>
 
-#include "absl/memory/memory.h"
-
 #include "intents_consolidator/intents/consolidator/consolidator.hpp"
 
 namespace intents
@@ -50,7 +48,7 @@ bool Consolidator::MergeResult(const ObjectClassificationResult & result)
 
   if (candidate_matches.empty()) {
     state_->PointsOfInterest().push_back(
-      absl::make_unique<POI>(
+      std::make_unique<POI>(
         POI(result.LabelUUID(), result.InfluenceRadius())));
     return false;
   }
