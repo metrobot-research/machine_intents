@@ -14,6 +14,7 @@ from sensor_msgs.msg import Image as msg_Image
 class FaceDetection(Node):
     def __init__(self):
         super().__init__("face_detection")
+        self.bridge = CvBridge()
         self.publisher_ = self.create_publisher(
             DetectionResult, "face_detection", 10)
         self.subscription = self.create_subscription(
@@ -24,6 +25,7 @@ class FaceDetection(Node):
         small_frame = cv2.resize(cv_image, (0, 0), fx=0.25, fy=0.25)
         # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
         rgb_small_frame = small_frame[:, :, ::-1]
+        cv2.imwrite("/home/vagrant/img.jpg", rgb_small_frame)
 
         face_locations = face_recognition.face_locations(rgb_small_frame)
         face_encodings = face_recognition.face_encodings(
@@ -42,7 +44,7 @@ class FaceDetection(Node):
             msg.embedding.point_step = 4
             msg.embedding.row_step = 512
             self.publisher_.publish(msg)
-            self.get_logger().info("Face Detected!")
+            self.get_logger().info("Face Detected! " + f"At point ({msg.x},{msg.y})")
         self.get_logger().info(f"{len(face_locations)} faces detected.")
 
 
