@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "intents_consolidator/intents/entity/occupant.hpp"
-#include "intents_consolidator/intents/entity/point_of_interest.hpp"
 
 namespace intents
 {
@@ -24,14 +23,8 @@ public:
     return occupants_;
   }
 
-  std::vector<std::unique_ptr<::intents::entity::POI>> & PointsOfInterest()
-  {
-    return points_of_interest_;
-  }
-
 private:
   std::vector<std::unique_ptr<::intents::entity::Occupant>> occupants_;
-  std::vector<std::unique_ptr<::intents::entity::POI>> points_of_interest_;
 };
 
 }  // namespace consolidator

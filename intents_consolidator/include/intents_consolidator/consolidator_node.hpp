@@ -7,6 +7,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "machine_intents_interfaces/msg/facial_recognition_result.hpp"
 
 #include "intents/consolidator/consolidator.hpp"
 
@@ -21,13 +22,13 @@ public:
   explicit ConsolidatorNode(const rclcpp::NodeOptions & options);
 
 private:
-  void ObservationCallback(const std_msgs::msg::String::SharedPtr msg);
+  void FacialRecognitionResultCallback(
+    const machine_intents_interfaces::msg::FacialRecognitionResult::SharedPtr msg);
 
   intents::consolidator::Consolidator consolidator_;
 
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr state_pub_;
-
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr observation_sub_;
+  rclcpp::Subscription<machine_intents_interfaces::msg::FacialRecognitionResult>::SharedPtr
+    observation_sub_;
 
 };
 

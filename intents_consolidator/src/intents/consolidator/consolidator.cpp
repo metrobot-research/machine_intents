@@ -7,55 +7,29 @@
 #include <vector>
 
 #include "intents_consolidator/intents/consolidator/consolidator.hpp"
+#include "intents_consolidator/intents/consolidator/state.hpp"
 
 namespace intents
 {
 namespace consolidator
 {
 
-using ::intents::consolidator::ObjectClassificationResult;
-using ::intents::consolidator::State;
-using ::intents::entity::POI;
 
-bool Consolidator::UpdateState(const std::unique_ptr<Result> result)
+Consolidator::Consolidator()
 {
-  const auto & result_type = typeid(*result);
+  state_ = std::make_unique<State>();
+}
 
-  if (result_type == typeid(ObjectClassificationResult)) {
-    return MergeResult(*static_cast<ObjectClassificationResult *>(result.get()));
-  } else {  // Failed to recognize the type of this result
-    return false;
+void Consolidator::Loop()
+{
+  while (true) {
+    // Pop elem and then run merge on non-null type in result
   }
 }
 
-bool Consolidator::MergeResult(const ObjectClassificationResult & result)
+void Consolidator::AddResult(const std::unique_ptr<Result> res)
 {
-  // Coarse scan through POIs by location
-  std::vector<POI *> candidate_matches;
-  for (const auto & poi : state_->PointsOfInterest()) {
-    if (poi->Near(result.Loc())) {
-      candidate_matches.push_back(poi.get());
-    }
-  }
-
-  // Fine scan through POIs by other attributes of this
-  // ObjectClassificationResult
-  std::remove_if(
-    candidate_matches.begin(), candidate_matches.end(),
-    [result](POI * candidate) {
-      return result.LabelUUID() == candidate->POIType();
-    });
-
-  if (candidate_matches.empty()) {
-    state_->PointsOfInterest().push_back(
-      std::make_unique<POI>(
-        POI(result.LabelUUID(), result.InfluenceRadius())));
-    return false;
-  }
-  auto * match = candidate_matches[0];
-  match->SetLocation(result.Loc());
-  match->SetLastSeen(result.Timestamp());
-  return true;
+  // Add elem to the queue
 }
 
 }  // namespace consolidator

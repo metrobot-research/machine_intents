@@ -10,7 +10,6 @@
 
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include "intents_consolidator/intents/entity/entity.hpp"
-#include "intents_consolidator/intents/entity/point_of_interest.hpp"
 #include "intents_consolidator/intents/entity/pose.hpp"
 
 namespace intents
@@ -34,9 +33,6 @@ public:
   {
     pose_history_.emplace_back(time, pose);
   }
-
-  bool Near(const POI other) override {return false;}
-  bool Near(const Location loc) override {return false;}
 
 private:
   std::vector<TimestampedPose> pose_history_;
