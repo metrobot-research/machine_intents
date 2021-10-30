@@ -17,7 +17,6 @@ namespace intents
 {
 namespace entity
 {
-class POI;
 
 class Entity
 {
@@ -36,9 +35,6 @@ public:
   }
 
   void SetLocation(const Location & location) {location_ = location;}
-
-  virtual bool Near(const POI other) = 0;
-  virtual bool Near(const Location loc) = 0;
 
 private:
   const boost::uuids::uuid uuid_;

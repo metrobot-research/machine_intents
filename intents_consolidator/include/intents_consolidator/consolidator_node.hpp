@@ -25,7 +25,7 @@ private:
   void FacialRecognitionResultCallback(
     const machine_intents_interfaces::msg::FacialRecognitionResult::SharedPtr msg);
 
-  intents::consolidator::Consolidator consolidator_;
+  std::unique_ptr<intents::consolidator::Consolidator> consolidator_;
 
   rclcpp::Subscription<machine_intents_interfaces::msg::FacialRecognitionResult>::SharedPtr
     observation_sub_;
