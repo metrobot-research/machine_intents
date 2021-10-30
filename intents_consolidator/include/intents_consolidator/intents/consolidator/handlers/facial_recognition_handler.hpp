@@ -10,6 +10,7 @@
 
 #include "intents_consolidator/datastructures/embedding.hpp"
 #include "intents_consolidator/intents/consolidator/state.hpp"
+#include "intents_consolidator/intents/entity/occupant.hpp"
 
 namespace intents
 {
@@ -31,7 +32,7 @@ public:
   FacialRecognitionHandler(const FacialRecognitionHandler &) = delete;
   FacialRecognitionHandler & operator=(const FacialRecognitionHandler &) = delete;
 
-  bool Merge(FacialRecognitionResult & res, State & state);
+  void Merge(FacialRecognitionResult & res, State & state);
 };
 
 }  // namespace consolidator

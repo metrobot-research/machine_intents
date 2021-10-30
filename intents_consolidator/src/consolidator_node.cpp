@@ -8,6 +8,7 @@
 #include "machine_intents_interfaces/msg/facial_recognition_result.hpp"
 
 #include "intents_consolidator/consolidator_node.hpp"
+#include "intents_consolidator/intents/consolidator/consolidator.hpp"
 
 namespace machine_intents
 {
@@ -20,11 +21,13 @@ ConsolidatorNode::ConsolidatorNode(const rclcpp::NodeOptions & options)
       "facial_recognition_result", 10,
       std::bind(&ConsolidatorNode::FacialRecognitionResultCallback, this, std::placeholders::_1))}
 {
+  consolidator_ = std::make_unique<intents::consolidator::Consolidator>();
 }
 
 void ConsolidatorNode::FacialRecognitionResultCallback(
   const machine_intents_interfaces::msg::FacialRecognitionResult::SharedPtr msg)
 {
+  // Convert msg to internal type and add to the queue.
   RCLCPP_INFO(get_logger(), "Received message");
 }
 

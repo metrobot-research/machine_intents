@@ -14,7 +14,6 @@ namespace intents
 namespace consolidator
 {
 
-
 Consolidator::Consolidator()
 {
   state_ = std::make_unique<State>();
