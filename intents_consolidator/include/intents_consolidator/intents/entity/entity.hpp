@@ -12,7 +12,6 @@
 #include "boost/uuid/uuid.hpp"
 
 #include "intents_consolidator/intents/entity/location.hpp"
-#include "intents_consolidator/intents/entity/size.hpp"
 
 namespace intents
 {

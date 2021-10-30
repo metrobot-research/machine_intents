@@ -58,15 +58,15 @@ private:
   double z_;
 };
 
-std::ostream & operator<<(std::ostream & stream, const Location & loc)
-{
-  return stream << loc.DebugString();
-}
+//std::ostream & operator<<(std::ostream & stream, const Location & loc)
+//{
+//return stream << loc.DebugString();
+//}
 
-Location operator-(const Location l1, const Location l2)
-{
-  return Location(l1.X() - l2.X(), l1.Y() - l2.Y(), l1.Z() - l2.Z());
-}
+//Location operator-(const Location l1, const Location l2)
+//{
+//return Location(l1.X() - l2.X(), l1.Y() - l2.Y(), l1.Z() - l2.Z());
+//}
 
 }  // namespace entity
 }  // namespace intents

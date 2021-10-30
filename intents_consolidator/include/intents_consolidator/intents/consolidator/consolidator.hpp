@@ -8,8 +8,7 @@
 #include <utility>
 #include <vector>
 
-#include "intents_consolidator/intents/consolidator/result/object_classification_result.hpp"
-#include "intents_consolidator/intents/consolidator/result/result.hpp"
+#include "intents_consolidator/intents/consolidator/handlers/facial_recognition_handler.hpp"
 #include "intents_consolidator/intents/consolidator/state.hpp"
 
 namespace intents
@@ -17,24 +16,28 @@ namespace intents
 namespace consolidator
 {
 
+struct Result
+{
+  std::unique_ptr<FacialRecognitionResult> facial_detection;
+};
+
 class Consolidator
 {
 public:
-  Consolidator() = default;
-  explicit Consolidator(std::unique_ptr<State> && state)
-  : state_(std::move(state)) {}
-
-  bool UpdateState(const std::unique_ptr<Result> result);
+  Consolidator();
 
   Consolidator(const Consolidator &) = delete;
   Consolidator & operator=(const Consolidator &) = delete;
 
-  // TODO(rithvikp): Make this private again and add a friend class for testing.
-  bool MergeResult(
-    const ::intents::consolidator::ObjectClassificationResult & result);
+  // Continually read from the result queue and update the internal state, periodically writing
+  // out to durable storage.
+  void Loop();
+
+  // Add the provided result to the queue. This method may block for a period of time.
+  void AddResult(const std::unique_ptr<Result> res);
 
 private:
-  const std::unique_ptr<State> state_;
+  std::unique_ptr<State> state_;
 };
 
 }  // namespace consolidator
