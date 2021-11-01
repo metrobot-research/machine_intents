@@ -7,6 +7,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
+#include <boost/lockfree/queue.hpp>
 
 #include "intents_consolidator/intents/consolidator/handlers/facial_recognition_handler.hpp"
 #include "intents_consolidator/intents/consolidator/state.hpp"
@@ -38,6 +39,7 @@ public:
 
 private:
   std::unique_ptr<State> state_;
+  boost::lockfree::queue<Result> queue_;
 };
 
 }  // namespace consolidator

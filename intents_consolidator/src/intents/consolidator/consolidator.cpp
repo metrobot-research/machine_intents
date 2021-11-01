@@ -23,12 +23,17 @@ void Consolidator::Loop()
 {
   while (true) {
     // Pop elem and then run merge on non-null type in result
+    Result res;
+    if (queue_.pop(res)) {
+      
+    }
   }
 }
 
 void Consolidator::AddResult(const std::unique_ptr<Result> res)
 {
   // Add elem to the queue
+  queue_.push(*res);
 }
 
 }  // namespace consolidator

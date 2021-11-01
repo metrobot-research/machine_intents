@@ -1,14 +1,10 @@
 /**
  * Copyright (c) 2021 The MetroBot Authors
  */
-#include <memory>
-
-#include "rclcpp/rclcpp.hpp"
-
-#include "machine_intents_interfaces/msg/facial_recognition_result.hpp"
 
 #include "intents_consolidator/consolidator_node.hpp"
-#include "intents_consolidator/intents/consolidator/consolidator.hpp"
+
+#include "rclcpp/rclcpp.hpp"
 
 namespace machine_intents
 {
@@ -17,18 +13,14 @@ namespace intents_consolidator
 
 ConsolidatorNode::ConsolidatorNode(const rclcpp::NodeOptions & options)
 : Node{"consolidator_node", options},
-  observation_sub_{create_subscription<machine_intents_interfaces::msg::FacialRecognitionResult>(
-      "facial_recognition_result", 10,
-      std::bind(&ConsolidatorNode::FacialRecognitionResultCallback, this, std::placeholders::_1))}
-{
-  consolidator_ = std::make_unique<intents::consolidator::Consolidator>();
-}
+  state_pub_{create_publisher<std_msgs::msg::String>("state", 10)},
+  observation_sub_{create_subscription<std_msgs::msg::String>(
+      "observation", 10,
+      std::bind(&ConsolidatorNode::ObservationCallback, this, std::placeholders::_1))} {}
 
-void ConsolidatorNode::FacialRecognitionResultCallback(
-  const machine_intents_interfaces::msg::FacialRecognitionResult::SharedPtr msg)
+void ConsolidatorNode::ObservationCallback(const std_msgs::msg::String::SharedPtr msg)
 {
-  // Convert msg to internal type and add to the queue.
-  RCLCPP_INFO(get_logger(), "Received message");
+  RCLCPP_INFO(get_logger(), "Received message: %s", msg->data.c_str());
 }
 
 }  // namespace intents_consolidator
