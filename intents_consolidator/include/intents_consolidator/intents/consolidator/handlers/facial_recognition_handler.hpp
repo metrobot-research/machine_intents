@@ -32,7 +32,7 @@ public:
   FacialRecognitionHandler(const FacialRecognitionHandler &) = delete;
   FacialRecognitionHandler & operator=(const FacialRecognitionHandler &) = delete;
 
-  void Merge(FacialRecognitionResult & res, State & state);
+  static void Merge(FacialRecognitionResult & res, State & state);
 };
 
 }  // namespace consolidator

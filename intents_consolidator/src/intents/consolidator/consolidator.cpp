@@ -23,17 +23,23 @@ void Consolidator::Loop()
 {
   while (true) {
     // Pop elem and then run merge on non-null type in result
-    Result res;
-    if (queue_.pop(res)) {
-      
+    const std::lock_guard<std::mutex> lock{queue_mutex_};
+    if (queue_.empty()) {
+      continue;
     }
+    Result res {std::move(queue_.front())};
+    queue_.pop();
+    if (res.facial_detection) {
+      FacialRecognitionHandler::Merge(*res.facial_detection, *state_);
+    }
+    // more else if statements for different result types here
   }
 }
 
 void Consolidator::AddResult(const std::unique_ptr<Result> res)
 {
   // Add elem to the queue
-  queue_.push(*res);
+  queue_.push(std::move(*res));
 }
 
 }  // namespace consolidator

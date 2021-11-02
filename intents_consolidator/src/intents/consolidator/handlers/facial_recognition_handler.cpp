@@ -21,7 +21,7 @@ FacialRecognitionResult::FacialRecognitionResult(
 }
 
 
-void FacialRecognitionHandler::Merge(FacialRecognitionResult & res, State & state)
+static void FacialRecognitionHandler::Merge(FacialRecognitionResult & res, State & state)
 {
   //
   return false;
