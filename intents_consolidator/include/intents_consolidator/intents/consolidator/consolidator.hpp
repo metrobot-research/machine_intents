@@ -20,7 +20,7 @@ namespace consolidator
 
 struct Result
 {
-  std::unique_ptr<FacialRecognitionResult> facial_detection;
+  std::unique_ptr<FacialRecognitionResult> facial_recognition;
 
   
 };

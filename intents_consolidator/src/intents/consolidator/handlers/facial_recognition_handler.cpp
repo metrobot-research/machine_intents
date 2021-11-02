@@ -4,9 +4,9 @@
 
 #include <memory>
 
-#include "machine_intents_interfaces/msg/facial_detection_result.hpp"
+#include "machine_intents_interfaces/msg/facial_recognition_result.hpp"
 
-#include "intents_consolidator/intents/consolidator/handlers/facial_detection_handler.hpp"
+#include "intents_consolidator/intents/consolidator/handlers/facial_recognition_handler.hpp"
 #include "intents_consolidator/datastructures/embedding.hpp"
 
 namespace intents
@@ -21,10 +21,10 @@ FacialRecognitionResult::FacialRecognitionResult(
 }
 
 
-static void FacialRecognitionHandler::Merge(FacialRecognitionResult & res, State & state)
+void FacialRecognitionHandler::Merge(FacialRecognitionResult & res, State & state)
 {
   //
-  return false;
+  return;
 }
 
 }  // namespace consolidator

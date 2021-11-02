@@ -29,8 +29,8 @@ void Consolidator::Loop()
     }
     Result res {std::move(queue_.front())};
     queue_.pop();
-    if (res.facial_detection) {
-      FacialRecognitionHandler::Merge(*res.facial_detection, *state_);
+    if (res.facial_recognition) {
+      FacialRecognitionHandler::Merge(*res.facial_recognition, *state_);
     }
     // more else if statements for different result types here
   }
