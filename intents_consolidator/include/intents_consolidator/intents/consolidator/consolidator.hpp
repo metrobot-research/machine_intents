@@ -7,6 +7,8 @@
 #include <memory>
 #include <utility>
 #include <vector>
+#include <queue>
+#include <mutex>
 
 #include "intents_consolidator/intents/consolidator/handlers/facial_recognition_handler.hpp"
 #include "intents_consolidator/intents/consolidator/state.hpp"
@@ -18,7 +20,9 @@ namespace consolidator
 
 struct Result
 {
-  std::unique_ptr<FacialRecognitionResult> facial_detection;
+  std::unique_ptr<FacialRecognitionResult> facial_recognition;
+
+  
 };
 
 class Consolidator
@@ -38,6 +42,9 @@ public:
 
 private:
   std::unique_ptr<State> state_;
+  std::queue<Result> queue_;
+  std::mutex queue_mutex_;
+  FacialRecognitionHandler facial_recognition_handler_{};
 };
 
 }  // namespace consolidator

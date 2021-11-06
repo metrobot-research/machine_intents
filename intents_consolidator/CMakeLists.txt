@@ -31,6 +31,7 @@ target_link_libraries(datastructures Eigen3::Eigen)
 ament_auto_add_library(
   intents
   src/intents/consolidator/consolidator.cpp
+  src/intents/consolidator/handlers/facial_recognition_handler.cpp
 )
 
 # consolidator_node
