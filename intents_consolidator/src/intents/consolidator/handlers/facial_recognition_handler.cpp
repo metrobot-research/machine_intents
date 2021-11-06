@@ -20,7 +20,6 @@ FacialRecognitionResult::FacialRecognitionResult(
   embedding_ = std::make_unique<datastructures::Embedding>(msg.embedding);
 }
 
-
 void FacialRecognitionHandler::Merge(FacialRecognitionResult & res, State & state)
 {
   //

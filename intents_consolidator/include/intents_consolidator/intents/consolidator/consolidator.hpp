@@ -44,6 +44,7 @@ private:
   std::unique_ptr<State> state_;
   std::queue<Result> queue_;
   std::mutex queue_mutex_;
+  FacialRecognitionHandler facial_recognition_handler_{};
 };
 
 }  // namespace consolidator
