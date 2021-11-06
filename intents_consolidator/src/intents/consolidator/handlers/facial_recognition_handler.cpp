@@ -15,9 +15,9 @@ namespace consolidator
 {
 
 FacialRecognitionResult::FacialRecognitionResult(
-  const machine_intents_interfaces::msg::FacialRecognitionResult * msg)
+   machine_intents_interfaces::msg::FacialRecognitionResult& msg)
 {
-  embedding_ = std::make_unique<datastructures::Embedding>(msg->embedding);
+  embedding_ = std::make_unique<datastructures::Embedding>(msg.embedding);
 }
 
 

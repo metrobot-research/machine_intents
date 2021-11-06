@@ -20,7 +20,7 @@ namespace consolidator
 class FacialRecognitionResult
 {
 public:
-  FacialRecognitionResult(const machine_intents_interfaces::msg::FacialRecognitionResult * msg);
+  FacialRecognitionResult(machine_intents_interfaces::msg::FacialRecognitionResult & msg);
 
 private:
   std::unique_ptr<datastructures::Embedding> embedding_;
