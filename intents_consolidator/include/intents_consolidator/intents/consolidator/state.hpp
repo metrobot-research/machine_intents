@@ -23,6 +23,10 @@ public:
     return occupants_;
   }
 
+  void AddOccupant(std::unique_ptr<::intents::entity::Occupant> occupant) {
+    occupants_.push_back(std::move(occupant));
+  }
+
 private:
   std::vector<std::unique_ptr<::intents::entity::Occupant>> occupants_;
 };

@@ -20,10 +20,15 @@ namespace consolidator
 class FacialRecognitionResult
 {
 public:
-  FacialRecognitionResult(const machine_intents_interfaces::msg::FacialRecognitionResult * msg);
+  FacialRecognitionResult(const machine_intents_interfaces::msg::FacialRecognitionResult * msg, const entity::Pose pose);
+
+  const datastructures::Embedding & GetEmbedding() {return * embedding_;}
+
+  const entity::Pose GetPose() {return pose_;}
 
 private:
   std::unique_ptr<datastructures::Embedding> embedding_;
+  entity::Pose pose_;
 };
 
 class FacialRecognitionHandler
