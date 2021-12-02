@@ -22,10 +22,11 @@ class Occupant : public ::intents::entity::Entity
   using TimestampedPose = std::pair<boost::posix_time::ptime, ::intents::entity::Pose>;
 
 public:
-  Occupant()
-  : pose_history_() {}
+  Occupant(std::unique_ptr<datastructures::Embedding> embedding){embedding_ = std::move(embedding);}
 
   const std::vector<TimestampedPose> & PoseHistory() {return pose_history_;}
+
+  const datastructures::Embedding & GetEmbedding() {return * embedding_;}
 
   void add_timestamped_pose(
     const boost::posix_time::ptime time,
@@ -34,8 +35,13 @@ public:
     pose_history_.emplace_back(time, pose);
   }
 
+  void SetEmbedding(std::unique_ptr<datastructures::Embedding> embedding) {
+    embedding_ = std::move(embedding);
+  }
+
 private:
   std::vector<TimestampedPose> pose_history_;
+  std::unique_ptr<datastructures::Embedding> embedding_;
 };
 
 }  // namespace entity
